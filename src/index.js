@@ -34,15 +34,13 @@ const bloggers = [
   {
     id: 4,
     name: "Иван Иванов",
-    avatar:
-      "https://www.seekpng.com/png/small/350-3509606_business-avatar-14-powerpoint-avatar-faces.png",
+    avatar: "https://avatars.design/wp-content/uploads/2016/09/avatar1b.jpg",
     bio: " Ea, enim placeat aperiam eius optio eos error, quibusdam repellendus, accusamus tempora ex corporis ratione eveniet praesentium. Fuga nostrum quia officiis eaque!",
   },
   {
     id: 5,
     name: "Иван Иванов",
-    avatar:
-      "https://www.seekpng.com/png/small/350-3509606_business-avatar-14-powerpoint-avatar-faces.png",
+    avatar: "https://avatars.design/wp-content/uploads/2016/09/avatar1b.jpg",
     bio: " Ea, enim placeat aperiam eius optio eos error, quibusdam repellendus, accusamus tempora ex corporis ratione eveniet praesentium. Fuga nostrum quia officiis eaque!",
   },
   {
@@ -54,37 +52,39 @@ const bloggers = [
   },
 ];
 
-const Bloggers = (props) => {
+const Blogger = ({ avatar, name, bio, children }) => {
+  // const { avatar, name, bio, children } = props;
+  // console.log(props);
   return (
     <div className="main-container">
-      <Avatar url={props.avatar} />
-      <BloggerName name={props.name} />
-      <BloggerText bio={props.bio} />
+      <Avatar url={avatar} />
+      <BloggerName name={name} />
+      <BloggerText bio={bio} />
+      {children}
     </div>
   );
 };
 
-const Avatar = (props) => {
+const Avatar = ({ url }) => {
   return (
     <div className="image-container">
-      <img className="profile-photo" src={props.url} alt="avatar" />
+      <img className="profile-photo" src={url} alt="avatar" />
     </div>
   );
 };
 
-const BloggerName = (props) => {
+const BloggerName = ({ name }) => {
   return (
     <div className="blogger-name-container">
-      <p>{props.name}</p>
+      <p>{name}</p>
     </div>
   );
 };
 
-const BloggerText = (props) => {
-  console.log(props.bio);
+const BloggerText = ({ bio }) => {
   return (
     <div className="bio">
-      <p>{props.bio}</p>
+      <p>{bio}</p>
     </div>
   );
 };
@@ -93,7 +93,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <div className="root">
     {bloggers.map((blogger) => {
-      return <Bloggers key={blogger.id} {...blogger} />;
+      return (
+        <Blogger key={blogger.id} {...blogger}>
+          <hr style={{ visibility: "visible" }} />
+        </Blogger>
+      );
     })}
   </div>
 );
